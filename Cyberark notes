@@ -1,0 +1,110 @@
+## Cyberark PAM Components
+
+- Digital Vault
+
++ - A secure server used to store privileged account information
++ - Based on a hardened Windows server platform
+
+- Password Vault Web Access (PVWA)
+
++ - The web interface for users to gain access to privileged account information
++ - Used by Vault administrators to configure policies
+
+- Central Policy Manager (CPM)
+
++ - Used for managing, adding and monitoring passwords and stuff
++ - Performs the password changes on devices
++ - Scans the network for privileged accounts
+
+- Priviliged Session Manager (PSM)
+
++ - Isolates and monitors privileged account activity
++ - Records and Audits privileged account sessions
+
+- Privileged Threat Analytics (PTA)
+
++ - Monitors and detects malicious privileged account behaviour
+
+> The Vault and it's Clients
+
+[Paste an image here]
+
+- The vault is the center of Cyberark PAM Solutions
+
+>> Service users/ clients
+
+- Unmanaged target account and services
+- Managed target account and services
+- Target databases
+- Unix/ Windows users
+- Vault admins
+- Custom applications, reporting tools, etc
+- End users: IT staff, auditors, etc
+
+>> Services
+
+- PrivateArk Client
+- PVWA
+- PSM
+- CPM
+- PTA
+- PACII and SDKs
+- Unix/ Windows application providers
+
+> The Vault: End-to-End Security
+
+[Paste an image here]
+
+> CyberArk’s Scalable Architecture
+
+[Paste an image here]
+
+> PVWA
+
+- The main GUI console you'll be working on
+- End users will use this interface to retrieve password or launch private session
+- Auditors will use this to monitor privileged sessions
+- The classic GUI is mostly used by vault admins ro manage policies and permissions and to configure the PVWA and the other components
+
+>> PVWA - New Interface
+
+[Paste an image here]
+
+>> PVWA - Classic Interface
+
+[Paste an image here]
+
+> PrivateArk Client
+
+- The PrivateArk client is the legacy interface to vault data
+- Mostly used by admins for certain tasks that are not implemented in PVWA
+- It can be installed on any station with access to the vault
+
+[Paste an image here]
+
+> PAM Web Services
+
+- The PAM web services is a Restful API that enables users to create, list, modify and delete entities in PAM using scripts and programs
+- The main purpose of the PAM web services is to automate tasks that are usually performed manually using the UI and to incorporate them into system- and account-provisioning scripts
+
+[Paste an image here]
+
+> Vault Central Administration System
+
+- Only available on Vault server
+- Starting and stopping the PrivateArk server windows service
+- Displaying the vault server log
+- Changing the vault debug level dynamically
+
+[Paste an image here]
+
+> Remote Control Client
+
+- CLI based
+- Execute tasks on vault server via **Remote Control Agent**
+- Client and agent communicate via cyberark remote control protocol on 9022
+- RCC reduces the need to open an RDP port for the vault
+
+[Paste an image here]
+
+---
