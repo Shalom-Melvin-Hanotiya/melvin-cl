@@ -1,110 +1,362 @@
-## Cyberark PAM Components
+Tags: #CyberArk
 
-- Digital Vault
+# User Management
 
-+ - A secure server used to store privileged account information
-+ - Based on a hardened Windows server platform
+- Here, user will refer to the actual people who will sign-in to use or manage the passwords within
+- While, accounts will refer to secret and credentials that have been stored in the vault and need to be managed by the CPM and be accessible to our users within the PVWA
 
-- Password Vault Web Access (PVWA)
-
-+ - The web interface for users to gain access to privileged account information
-+ - Used by Vault administrators to configure policies
-
-- Central Policy Manager (CPM)
-
-+ - Used for managing, adding and monitoring passwords and stuff
-+ - Performs the password changes on devices
-+ - Scans the network for privileged accounts
-
-- Priviliged Session Manager (PSM)
-
-+ - Isolates and monitors privileged account activity
-+ - Records and Audits privileged account sessions
-
-- Privileged Threat Analytics (PTA)
-
-+ - Monitors and detects malicious privileged account behaviour
-
-> The Vault and it's Clients
+> User vs Accounts
 
 [Paste an image here]
 
-- The vault is the center of Cyberark PAM Solutions
+- Users
 
->> Service users/ clients
+    - People who have been granted access to the system
+    - To access passwords
+    - To manage policies
+    - Typically defined by their Domain credentials
 
-- Unmanaged target account and services
-- Managed target account and services
-- Target databases
-- Unix/ Windows users
-- Vault admins
-- Custom applications, reporting tools, etc
-- End users: IT staff, auditors, etc
+- Accounts
 
->> Services
+    - The actual privileged account IDs and passwords
+    - Stored in Safes
+    - Examples include domain administrators, local administrators, root accounts, service accounts and more
 
-- PrivateArk Client
-- PVWA
-- PSM
-- CPM
-- PTA
-- PACII and SDKs
-- Unix/ Windows application providers
+> Internal vs. Transparent users and groups
 
-> The Vault: End-to-End Security
+- Transparent users are external users users provisioned automatically in the vault when they authenticate via Lightweight Directory Access Protocol (LDAP) for the first time
+- These users and groups are marked with a white LDAP User or groups icon
+- If you delete a transparent user within
+CyberArk, it will be automatically re-created upon login if it still exists within AD and answers the mapping criteria
 
 [Paste an image here]
 
-> CyberArk’s Scalable Architecture
+- Internal users and groups (Cyberark)
+
+    - Users and groups that are created automatically in the vault (Built-in)
+    - Users and groups that are added manually to the vault
+
+- Transparent users and groups (LDAP)
+
+    - Users and groups that are automatically provisioned from an external directory
+    - These are just external users from Cyberark POV
+
+> Predefined users and groups
+
+- The CyberArk Vault automatically creates several users and groups during the installation process
+- These users are created for administrative tasks and eliminate the need for specific users to be constantly available to carry out administrative chores
+- Most of these users and groups become owners of every Safe in the Vault, both existing and new, with their authorizations corresponding to the tasks they need to perform
+- The most important user is the Master user
 
 [Paste an image here]
 
-> PVWA
+> Master User
 
-- The main GUI console you'll be working on
-- End users will use this interface to retrieve password or launch private session
-- Auditors will use this to monitor privileged sessions
-- The classic GUI is mostly used by vault admins ro manage policies and permissions and to configure the PVWA and the other components
-
->> PVWA - New Interface
-
-[Paste an image here]
-
->> PVWA - Classic Interface
+- The master user in simple words is the 'True SuperUser'
+- It is the single most powerful user in the system, with full safe and vault authorizations that cannot be removed
+- It should be used with cautiouslly
+- It cannnot change/ modify it's own permissions
+- It exists to avoid normal admins from accessing user data, other file servers cannnot make this claim
+- The vault cannot manage the password for Master users
+- Don't transfer the docs from the PVWA console to Cognizant laptop, security breach may happen
 
 [Paste an image here]
 
-> PrivateArk Client
+[Paste an image here]
 
-- The PrivateArk client is the legacy interface to vault data
-- Mostly used by admins for certain tasks that are not implemented in PVWA
-- It can be installed on any station with access to the vault
+>> Logging in with Master
+
+- The Master user can be only logged in through the PrivateArk client, no other interface supports logging in with this special user
+- 3-Factor Authentication:
+1. Master user password (defined during installation)
+2. Access to the RecPrvKey
+3. Access only from the vault console and one additonal IP address (EmergencyStationIP)
 
 [Paste an image here]
 
-> PAM Web Services
+>> Changing the Master Password
 
-- The PAM web services is a Restful API that enables users to create, list, modify and delete entities in PAM using scripts and programs
-- The main purpose of the PAM web services is to automate tasks that are usually performed manually using the UI and to incorporate them into system- and account-provisioning scripts
-
-[Paste an image here]
-
-> Vault Central Administration System
-
-- Only available on Vault server
-- Starting and stopping the PrivateArk server windows service
-- Displaying the vault server log
-- Changing the vault debug level dynamically
+- Cyberark does not recommend periodic rotation of the master password
+- Change can be made same way to normal user password
+- To change the Master user password, log in with the Master user and click on 'User' -> 'Set Password'
 
 [Paste an image here]
 
-> Remote Control Client
+## User Management in PrivateArk Client
 
-- CLI based
-- Execute tasks on vault server via **Remote Control Agent**
-- Client and agent communicate via cyberark remote control protocol on 9022
-- RCC reduces the need to open an RDP port for the vault
+- Users are stored in the vault database
+- It is recommended that you manage your users with an external LDAP directory, such as Active Directory
+- Users can also be manually created via the PrivateArk Client
 
 [Paste an image here]
+
+> Manually Adding a User
+
+- New users can be manually added through the PrivateArk Client interface
+
+[Paste an image here]
+
+> Authorized Interfaces
+
+- Select which interfaces this user can log in from.
+
+[Paste an image here]
+
+> Authentication
+
+- Select the Authentication method for this user.
+
+[Paste an image here]
+
+> Vault Authorizations
+
+- Configure the Vault authorizations for this user.
+
+[Paste an image here]
+
+> Group Membership
+
+- Select which Groups you want this user to be a member of.
+
+[Paste an image here]
+
+> Other User Tabs
+
+- Configure the Business e-mail field for this user to receive e-mail notifications.
+
+[Paste an image here]
+
+## User Management in PVWA
+
+- Starting on PAM v13, Cyberark introduced user management module in the web portal admin view (PVWA)
+- This view enables you to:
+
+    - Create and Edit CyberArk Users
+    - Create Groups and Assign users to them
+    - Disable a user or Activate a suspended user
+    - Reset a user’s password Managing Users Using PVWA
+
+> Create New CyberArk Users
+
+- You can manually add new users through the PVWA interface.
+- PVWA > User Provisioning > Users > Create Cyberark user
+
+[Paste an image here]
+
+> Edit CyberArk Users
+
+- You can edit CyberArk users through the PVWA interface.
+- PVWA > User Provisioning > Users > Edit
+
+[Paste an image here]
+
+> Create New Groups
+
+- You can manually create new groups through the PVWA interface.
+- PVWA > User Provisioning > Groups > Create Group
+
+[Paste an image here]
+
+> Disable and Activate Users
+
+- You can disable a user or activate a suspended one through the PVWA interface.
+- PVWA > User Provisioning > Users > (designated user) user1 > ... > Activate or Disable
+
+[Paste an image here]
+
+> Reset A User’s Password
+
+- You can reset a user’s password through the PVWA interface.
+- PVWA > User Provisioning > Users > (designated user) user1 > ... > Authentication method > New Password > Confirm Password > Save Changes
+
+[Paste an image here]
+
+---
+
+# Transparent User Management
+
+- The Vault communicates with LDAP-compliant directory servers to obtain user identification and security information
+- This enables automatic provisioning and creation of unique users based upon the external group membership and attributes
+
+[Paste an image here]
+
+> Lightweight Directory Access Protocol (LDAP)
+
+- The first step is to connect the vault qith an LDAP server (Usually MS Active Directory)
+- A new Wizard will guide your through this process.
+- You will be required to provide the credentials of a bind account to authenticate to LDAP.
+
+[Paste an image here]
+
+> Directory Mapping
+
+- The second step allows you to define default directory mappings.
+
+[Paste an image here]
+
+> User Provisioning
+
+- Users are provisioned automatically in the Vault the first time they authenticate via LDAP, receiving roles and attributes based on the Directory Mapping that applies to them.
+- LDAP Users and Groups that have been created in the Vault are marked with a white LDAP User or Groups icon.
+
+[Paste an image here]
+
+> User Removal
+
+- If you delete a user within CyberArk, it will be automatically re-created upon login if it still exists within AD.
+- To block an LDAP User or Group from CyberArk, remove them from all LDAP groups with an associated directory mapping, or disable/delete them in the external directory.
+- A daily process checks which users map to the various queries.
+
+[Paste an image here]
+
+> LDAP Synchronization
+
+- The parameter 'AutoSyncExternalObjects' in the dbparm.ini file determines if, how often, and when the Vault’s External users and groups will be synchronized with the External Directory.
+
+[Paste an image here]
+
+---
+
+# Authorizations
+
+- Vault authorization
+- Safe authorization
+- PVWA permissions
+
+> Vault authorization
+
+- Predefined users are assigned diiferent vault authorizations based on their role and function
+- Can be assigned only to users (not groups).
+- Cannot be inherited via group membership.
+- Can be defined via the Private Ark Client or PVWA.
+
+[Paste an image here]
+
+>> Vault Authorizations – Administrator
+
+- The built-in Administrator user has full Vault authorizations by default.
+
+[Paste an image here]
+
+>> Vault Authorizations – Auditor User
+
+- The built-in Auditor user only has the “Audit Users” Vault authorization by default.
+
+[Paste an image here]
+
+>> Vault Authorizations – Backup User
+
+- The built-in Backup user only has the “Backup all safes” Vault authorization by default.
+- Starting in version 13.x Vault Authorizations can also be configured and viewed from PVWA
+
+[Paste an image here]
+
+> Safe authorization
+
+- Most predefined users and groups are added to all newly created Safes based on their role and function.
+- Users in the Auditors group are automatically added to all Safes with permissions to:
+
+    - List accounts
+    - View Safe members
+    - View audit log
+
+- It can be assigned to users and/or groups.
+- Can be inherited via group membership.
+- Can be defined in the PrivateArk Client or PVWA
+- The list of groups that are added automatically to newly created Safes is controlled by a parameter in the 'dbparm.ini' file
+
+[Paste an image here]
+
+[Paste an image here]
+
+[Paste an image here]
+
+> PVWA permissions
+
+- The group membership will also determine what the user can see or do in the PVWA
+- The PVWA tabs and buttons available depends on the logged-in user's membership in a built-in group
+- Through this the UI can be controlled to let the user access what he has been granted
+
+    - Members of Vault Admins have access to the Administration tab
+
+    [Paste an image here]
+
+    - Members of Auditors have access to the Privileged Sessions tab
+
+    [Paste an image here]
+
+    - Members of Security Admins and Security Operators have access to the Security pane
+
+    [Paste an image here]
+
+---
+
+# Directory Mapping
+
+- A directory mapping creates a directory map
+- A directory map determins whether a user account or group will be created in the vault and the roles they will have
+- A directory map links an LDAP group with one of the built-in Cyberark groups and determines how user accounts are created in the vault and the roles they will have
+- You can edit these directory map later or create custom mappings according to the needs
+- There are two types of map:
+
+    - User Mapping
+    Allows for authentication and defines user attributes, such as vault authorizations and locations
+
+    - Group Mapping
+    Makes LDAP groups searchable from within CyberArk, allowing mapped groups to be granted safe authorizations and to be nested within built-in CyberArk groups.
+
+[Paste an image here]
+
+> Prepare the Active Directory
+
+- The first step is tocreate atleast four groups in active directory that will be mapped to predefined cyberark roles
+- Request creation of 4 groups in LDAP:
+
+    - CyberArk Auditors
+    - CyberArk Safe Managers
+    - CyberArk Users
+    - CyberArk Vault Admins
+
+- Once the LDAP integration is performed the user of any one of these four groups will be able to login in Cyberark with authentication and safe associated with each role
+
+[Paste an image here]
+
+> Predefined Directory Mappings
+
+- The LDAP Integration Wizard is used to map AD groups to the four predefined CyberArk roles:
+
+    - Vault Admins
+    - Safe Managers
+    - Auditors
+    - Users
+
+[Paste an image here]
+
+> Vault Admins Mapping – Vault Authorizations
+
+- The Vault Admins mapping is applied to any user who is a member of the LDAP group CyberArk Vault Admins
+- LDAP users are provisioned in the Vault with the appropriate authorizations the first time the users log in Vault Admins
+
+[Paste an image here]
+
+> Custom Directory Mapping
+
+- In addition to the predefined mappings, you can create custom directory mappings via a simplified wizard in the PVWA
+
+[Paste an image here]
+
+---
+
+# Preparing the Active Directory Environment
+
+- 
+
+---
+
+# References
+
+- Cyberark University [>](https://training.cyberark.com/)
+- Cyberark Documentation [>](https://docs.cyberark.com/pam-self-hosted/latest/en/content/resources/_topnav/cc_home.htm)
+- 02-PAM-ADMIN-User-Management.pdf [Attachment]
 
 ---
