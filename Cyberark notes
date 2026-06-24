@@ -347,12 +347,6 @@ CyberArk, it will be automatically re-created upon login if it still exists with
 
 ---
 
-# Preparing the Active Directory Environment
-
-- 
-
----
-
 # References
 
 - Cyberark University [>](https://training.cyberark.com/)
