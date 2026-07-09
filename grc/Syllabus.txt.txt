@@ -1,0 +1,43 @@
+Subject: Re: Re: SME request for Manage engine PAM 360
+
+Hi Melvin,
+
+Find the below documents and videos.
+
+Regards
+Divyesh
+
+From: ManageEngine PAM Solutions <pameval@manageengine.com>
+Sent: Tuesday, June 23, 2026 18:47
+To: Pillay, Divyesh (Cognizant) <divyesh.pillay@cognizant.com>
+
+
+
+
+
+Do find a few informative links to help familiarize yourself with PAM360:
+
+You can download PAM360 from here and access the product guide here. Other useful documents can be found here.
+
+MASTERCLASS :
+https://www.youtube.com/playlist?list=PL-ISVwfVARidd4kTAkZkC-0YfnSmGLC2e
+
+HOW-TO VIDEOS : 
+https://www.youtube.com/playlist?list=PL-ISVwfVARid_aSZhCrFupc_bQAAShtEN
+
+ARCHITECTURE:
+https://www.manageengine.com/privileged-access-management/help/architecture.html
+
+
+
+
+
+Please refer to the below link to familiarize with the PAM360 position:
+
+KuppingerCole: https://www.manageengine.com/privileged-access-management/analyst-reports/kuppingercole-leadership-compass-pam.html
+                      https://www.manageengine.com/news/pam-360-roi-kuppinger-cole-report.html
+Gartner Magic Quadrant: https://www.gartner.com/reviews/market/privileged-access-management
+
+Please find the attached document for your reference regarding the Nginx load balancer configuration.
+If you have any other questions or need technical assistance, feel free to write to me and I will be glad to assist you.   
+Assuring our best support at all times.
